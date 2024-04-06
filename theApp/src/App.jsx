@@ -3,10 +3,13 @@ import './App.css';
 import { ChatWithDocDai } from './components/ChatDocDAI';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
+      <div className="Header bg-blue-500">
+        <h1 className="font-bold text-2xl">Chat with DocDAI! 👨🏽‍⚕️</h1>
+        <h5>Your go-to companion for navigating health information.</h5>
+      </div>
+
       <ChatWithDocDai />
     </>
   )
