@@ -22,11 +22,6 @@ export const ChatWithDocDai = () => {
     initThread(); // Call the function to start a new thread on component mount
   }, []); // only runs once mount
 
-  const handleStartThread = async () => {
-    const response = await createThread();
-    setThreadId(response.data.threadId);
-    setMessages([]);
-  };
   const handleSendMessage = async () => {
     if (!message.trim()) return;
 
