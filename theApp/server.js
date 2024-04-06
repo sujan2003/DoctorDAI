@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config();
 
 import OpenAI from 'openai';
@@ -8,6 +9,9 @@ const { API_KEY, ASSISTANT_ID } = process.env;
 // Setup Express
 const app = express();
 app.use(express.json()); // Middleware to parse JSON bodies
+app.use(cors({
+    origin: 'http://localhost:5173' // Only allow requests from this origin
+  }));
 
 // Set up OpenAI Client
 const openai = new OpenAI({
