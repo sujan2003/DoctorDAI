@@ -12,23 +12,25 @@ export const ChatWithDocDai = () => {
     setThreadId(response.data.threadId);
     setMessages([]);
   };
-
   const handleSendMessage = async () => {
     if (!message.trim()) return;
   
     try {
       const response = await postMessage(threadId, message);
-      console.log(response.data); // To verify the data structure
-      // Adjusting to match expected data structure for rendering
-      const newMessage = { text: response.data.messages[0][0].text.value };
-      setMessages(prevMessages => {
-        const updatedMessages = [...prevMessages, { text: response.data.messages[0][0].text.value }];
-        console.log(updatedMessages); // Check the updated state value
-        return updatedMessages;
-      });
-      setMessage('');
+      //console.log(response.data); // To verify the data structure
+      
+      // Here, you can opt to immediately display the user's message by adding it to the chat history
+      const userMessage = { text: message, sender: "user" }; // Example structure, adjust as needed
+      setMessages(prevMessages => [...prevMessages, userMessage]);
+  
+      // Optionally, wait for the API response to include the message in the chat history
+      const newMessage = { text: response.data.messages[0][0].text.value, sender: "response" }; // Adjust based on actual data structure
+      setMessages(prevMessages => [...prevMessages, newMessage]);
+  
+      setMessage(''); // Optionally reset the input field here if desired
     } catch (error) {
-      console.error("Failed to send message:", error);
+      alert('Error: ' + error.message); // Optional: Display an error message
+      //console.error("Failed to send message:", error);
     }
   };
   
