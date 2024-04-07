@@ -1,3 +1,5 @@
+// Created by Sujan Niroula
+
 import { useState } from 'react';
 import './App.css';
 import { ChatWithDocDai } from './components/ChatDocDAI';
@@ -7,7 +9,7 @@ function App() {
   return (
     <>
       <span className='centering'>
-        <div className=" w-80">
+        <div className=" w-85">
           <span className="centering">
             <img className='rounded-full' width='100px' height='100px' src={logo} alt="logo" />
           </span>
@@ -15,6 +17,7 @@ function App() {
           <h5>Your go-to companion for navigating health information.</h5>
         </div>
       </span>
+      <br />
 
       <ChatWithDocDai />
     </>

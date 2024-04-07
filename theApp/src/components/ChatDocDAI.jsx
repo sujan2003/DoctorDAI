@@ -28,11 +28,12 @@ export const ChatWithDocDai = () => {
   const handleSendMessage = async () => {
     if (isInitializingThread || !message.trim()) return;
 
-    setIsFetchingMessage(true);
+    
     try {
+      setIsFetchingMessage(true);
       const response = await postMessage(threadId, message);
       //console.log(response.data); // To verify the data structure
-
+      
       // Immediately display the user's message by adding it to the chat history
       const userMessage = { text: message, sender: "user" }; 
       setMessages(prevMessages => [...prevMessages, userMessage]);
