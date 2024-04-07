@@ -48,10 +48,17 @@ export const ChatWithDocDai = () => {
       //console.error("Failed to send message:", error);
     }
   };
+
+  //Submits on enter key press instead of clicking send button
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       handleSendMessage();
     }
+  };
+
+  //clears the chat
+  const handleClearChatHistory = () => {
+    setMessages([]);
   };
 
   return (
@@ -65,22 +72,19 @@ export const ChatWithDocDai = () => {
           disabled={isInitializingThread}
           onKeyDown={handleKeyPress}
         />
-        <button onClick={handleSendMessage} className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded'>⬆️</button>
+        <button onClick={handleSendMessage} className='bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded mr-2'>Submit</button>
+        <button onClick={handleClearChatHistory} className='bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-2 rounded'>Clear Chat</button>
       </div>
 
       {isInitializingThread && <div>Reload to create a new thread</div>}
       {isFetchingMessage && <div>Getting a response...😉</div>}
       <div className="mt-5">
-        {/* <p>{message}</p> */}
         {messages.map((msg, index) => (
           <p key={index} className="bg-gray-100 text-gray-800 px-4 py-2 rounded shadow mb-2">
-            {msg.text || "No message available."} {/* Access the text property */}
+            {msg.text || "No message available."} {/* Access the text property */} 
           </p>
         ))}
-
       </div>
-
-
     </>
   );
 };
