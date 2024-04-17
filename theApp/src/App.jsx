@@ -19,6 +19,7 @@ function App() {
       </span>
       <br />
 
+      {/* Chatting component */}
       <ChatWithDocDai />
     </>
   )

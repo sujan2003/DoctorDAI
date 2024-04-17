@@ -50,8 +50,7 @@ export const ChatWithDocDai = () => {
 
       setIsFetchingMessage(false);
     } catch (error) {
-      alert('Error: ' + error.message); // Optional: Display an error message
-      //console.error("Failed to send message:", error);
+      alert('Error: ' + error.message); // Display an error message
     }
   };
 
@@ -66,7 +65,7 @@ export const ChatWithDocDai = () => {
   const handleClearChatHistory = () => {
     setMessages([]);
   };
-  
+
   return (
     <>
       <div className="sticky top-0 bg-slate-300">
@@ -89,6 +88,7 @@ export const ChatWithDocDai = () => {
         {messages.map((msg, index) => (
           <p key={index} className="bg-gray-100 text-gray-800 px-4 py-2 rounded shadow mb-2">
             {msg.text || "No message available."} {/* Access the text property */} 
+            {console.log(msg)}
           </p>
         ))}
         <div ref={messagesEndRef} /> {/* Invisible div for auto-scrolling */}
