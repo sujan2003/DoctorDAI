@@ -1,6 +1,6 @@
 // Created by Sujan Niroula
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createThread, postMessage } from '../api/DocDai';
 
 export const ChatWithDocDai = () => {
@@ -9,6 +9,7 @@ export const ChatWithDocDai = () => {
   const [message, setMessage] = useState(''); //creating a state variable to store the message that user types in the text area
   const [messages, setMessages] = useState([]); //creating a state variable to store the messages
   const [isFetchingMessage, setIsFetchingMessage] = useState(false); // a boolean value used for checking if we are fetching
+  const messagesEndRef = useRef(null); // Ref for auto-scrolling
 
   useEffect(() => {
     // Function to initialize a new thread
@@ -25,10 +26,14 @@ export const ChatWithDocDai = () => {
     initThread(); // Call the function to start a new thread on component mount
   }, []); // only runs once mount
 
+  useEffect(() => {
+    // Auto-scroll to the latest message
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+  
   const handleSendMessage = async () => {
     if (isInitializingThread || !message.trim()) return;
 
-    
     try {
       setIsFetchingMessage(true);
       const response = await postMessage(threadId, message);
@@ -45,8 +50,7 @@ export const ChatWithDocDai = () => {
 
       setIsFetchingMessage(false);
     } catch (error) {
-      alert('Error: ' + error.message); // Optional: Display an error message
-      //console.error("Failed to send message:", error);
+      alert('Error: ' + error.message); // Display an error message
     }
   };
 
@@ -75,16 +79,19 @@ export const ChatWithDocDai = () => {
         />
         <button onClick={handleSendMessage} className='bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded mr-2'>Submit</button>
         <button onClick={handleClearChatHistory} className='bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-2 rounded'>Clear Chat</button>
+        {isFetchingMessage && <div className='sticky top-20'>Getting a response...😉</div>}
       </div>
 
       {isInitializingThread && <div>Reload to create a new thread</div>}
-      {isFetchingMessage && <div>Getting a response...😉</div>}
+      
       <div className="mt-5">
         {messages.map((msg, index) => (
           <p key={index} className="bg-gray-100 text-gray-800 px-4 py-2 rounded shadow mb-2">
             {msg.text || "No message available."} {/* Access the text property */} 
+            {console.log(msg)}
           </p>
         ))}
+        <div ref={messagesEndRef} /> {/* Invisible div for auto-scrolling */}
       </div>
     </>
   );
