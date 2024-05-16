@@ -49,12 +49,10 @@ async function runAssistant(threadId) {
         threadId,
         { 
           assistant_id: assistantId
-          // Make sure to not overwrite the original instruction, unless you want to
         }
       );
 
     console.log(response)
-
     return response;
 }
 

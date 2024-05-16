@@ -1,7 +1,6 @@
-// src/api/DocDaiAPI.js
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3000'; // Adjust according to your actual backend URL
+const API_BASE_URL = 'http://localhost:3000';
 
 export const createThread = async () => {
   return axios.get(`${API_BASE_URL}/thread`);
